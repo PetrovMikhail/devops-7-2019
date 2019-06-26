@@ -5,8 +5,8 @@ import boto3
 client = boto3.client('s3')
 s3 = boto3.resource('s3')
 
-bucket_to_copy = "bucket-id1231355"
-buckets_from_copy = ["bucket-id123123"]
+bucket_to_copy = "bucket-id-main"
+buckets_from_copy = ["bucket-id123123", "bucket-id1231355", "bucket-id546"]
 
 
 def copy_files(dest_bucket: str, src_buckets: List) -> None:
@@ -15,7 +15,7 @@ def copy_files(dest_bucket: str, src_buckets: List) -> None:
         create_bucket(client, dest_bucket)
 
     for bucket in src_buckets:
-        for key in s3.list_objects(Bucket=bucket)['Contents']:
+        for key in client.list_objects(Bucket=bucket)['Contents']:
             files = key['Key']
             copy_source = {'Bucket': bucket, 'Key': files}
             s3.meta.client.copy(copy_source, dest_bucket, files)
