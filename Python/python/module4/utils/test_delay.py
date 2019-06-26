@@ -7,7 +7,8 @@ PACKAGE_PARENT = '../../..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 
-from module4.delay import delay
+from python.module4.utils.delay import delay
+
 
 class TestDelayDec(unittest.TestCase):
     def setUp(self):
@@ -16,14 +17,13 @@ class TestDelayDec(unittest.TestCase):
     def tearDown(self):
         pass
 
-
     def test_delay(self):
         @delay
         def return_str():
             return self.test_string
 
         t1 = datetime.now()
-        _  = return_str()
+        _ = return_str()
         self.assertGreater((datetime.now() - t1).total_seconds(), 3, msg="Run time should be grater that 3 seconds")
 
     def test_delay_with_doc(self):
@@ -42,7 +42,7 @@ class TestDelayDec(unittest.TestCase):
             return self.test_string
 
         t1 = datetime.now()
-        _  = return_str()
+        _ = return_str()
         print((datetime.now() - t1).total_seconds())
         self.assertGreater((datetime.now() - t1).total_seconds(), 6, msg="Run time should be grater that 6 seconds")
 
